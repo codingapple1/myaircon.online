@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Aircon</title>
+</head>
+
+<body style="margin: 0;" >
+
+
+  <div class="aircon-box">
+    <div class="temp-box">
+      <h4 class="temp"></h4>
+    </div>
+    <div class="who-alert"><p></p></div>
+    <div class="who"><p></p></div>
+    <img src="/aircon0.png" class="aircon">
+    <img src="/aircon-fan2.png" class="aircon aircon-fan">
+    <img src="/air2.png" class="aircon air">
+  </div>
+
+
+  <div class="modal">
+    <div class="modal-inner">
+      <input placeholder="nickname" maxlength="9">
+      <button class="ok">OK</button>
+    </div>
+  </div>
+
+  <div class="aircon-box">
+
+    <button class="plus">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg>
+    </button>
+    <button class="minus">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" /></svg></button>
+    <button class="brown-noise2"></button>
+
+  </div>
+  <div class="aircon-box" style="margin-top: 20px;">
+    <button class="real-time">Online mode is off</button>
+  </div>
+
+  
+  
+  <!-- stats and about -->
+  <dialog style="font-size: 11px;">
+    <p>+ button pressed count : <span class="plusCount">0</span></p>
+    <p>- button pressed count : <span class="minusCount">0</span></p>
+    <button class="close-dialog1" autofocus>Close</button>
+  </dialog>
+  <span class="show-dialog1" style="position: fixed; bottom: 10px; right: 45px; font-size: 9px;">Stats</span>
+
+
+  <dialog style="font-size: 11px;">
+    <p>- Brown noise generator to focus and relax</p>
+    <p>- turn on online mode to share the aircon with everyone (saves electricity)</p>
+    <p>- Youtube @codingapple</p>
+    <button class="close-dialog2" autofocus>Close</button>
+  </dialog>
+  <span class="show-dialog2" style="position: fixed; bottom: 10px; right: 10px; font-size: 9px;">About</span>
+
+
+
+
+
+  <script>
+    const dialog = document.querySelectorAll("dialog");
+    const showButton1 = document.querySelector(".show-dialog1");
+    const showButton2 = document.querySelector(".show-dialog2");
+    const closeButton1 = document.querySelector(".close-dialog1");
+    const closeButton2 = document.querySelector(".close-dialog2");
+
+    //stats modal
+    showButton1.addEventListener("click", () => {
+      var plus = localStorage.getItem('+')
+      var minus = localStorage.getItem('-')
+      document.querySelector('.plusCount').innerHTML = plus || '0'
+      document.querySelector('.minusCount').innerHTML = minus || '0'
+      dialog[0].showModal();
+    });
+
+    closeButton1.addEventListener("click", () => {
+      dialog[0].close();
+    });
+
+    //about modal
+    showButton2.addEventListener("click", () => {
+      dialog[1].showModal();
+    });
+
+    closeButton2.addEventListener("click", () => {
+      dialog[1].close();
+    });
+  </script>
+
+
+  <script src="/brown-run.js"></script>
+
+
+  <style>
+    .modal {
+      background: white;
+      position: absolute;
+      width: 100%;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 4;
+    }
+
+    .modal input {
+      padding: 5px;
+    }
+
+    button {
+      padding: 5px;
+      background: #272727;
+      color: white;
+      border-radius: 5px;
+    }
+
+    button:active {
+      background: #6b6b6b;
+    }
+
+    .aircon-box {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .aircon {
+      width: 350px;
+    }
+
+    .air {
+      position: absolute;
+    }
+
+    .aircon-fan {
+      position: absolute;
+      transform: translateY(102px) scaleY(1);
+    }
+
+    .air {
+      visibility: hidden;
+    }
+
+    .air-animate {
+      visibility: visible;
+      clip-path: inset(0 0 0 0);
+      animation: reveal 2s forwards;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes reveal {
+      0% {
+        clip-path: inset(0 0 100% 0);
+        opacity: 0.9;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
+
+      100% {
+        clip-path: inset(0 0 0 0);
+        opacity: 0;
+      }
+    }
+
+    .flip {
+      transition: transform 1s;
+      transform: translateY(114px) scaleY(-1);
+    }
+
+    .temp-box {
+      position: absolute;
+      top: 50px;
+      opacity: 1;
+      transition: all 1s;
+    }
+
+    .who {
+      position: absolute;
+      font-size: 11px;
+      top : 20px;
+    }
+
+    .who p {
+      transition: opacity 1s;
+      opacity: 1;
+    }
+    .who-alert p{
+      transition: opacity 0.5s;
+      opacity: 1;
+    }
+
+    .who-alert {
+      position: absolute;
+      font-size: 11px;
+      top : 0px;
+    }
+    .who .who-fade, .who-alert .who-fade{
+      opacity: 0;
+    }
+    
+
+    .rainbow {
+      background: linear-gradient(in hsl longer hue 45deg, rgba(255, 0, 0, 0.537) 0 0);
+      color: black;
+      transition: all 1s;
+    }
+
+  </style>
+
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"
+    integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO"
+    crossorigin="anonymous"></script>
+
+  <script>
+
+    var tempElement = document.querySelector('.temp')
+    var whoElement = document.querySelector('.who')
+    var whoAlertElement = document.querySelector('.who-alert')
+    var currentTemp = 30;
+    var isOnline = false;
+    var isSoundOn = false;
+
+
+    const socket = io();
+    socket.on("connect", () => {
+      socket.on("init", (data) => {
+        document.querySelector('.temp').innerHTML = data + '℃'
+        currentTemp = data;
+      });
+
+    })
+
+
+
+    var username = ''
+    document.querySelector('.ok').addEventListener('click', () => {
+      //save name
+      username = document.querySelector('input').value
+      document.querySelector('.modal').style.display = 'none'
+
+      turnOn()
+    })
+
+
+
+    function turnOn() {
+      //brown noise ON
+      document.querySelector('.brown-noise2').click()
+      isSoundOn = true;
+
+      //animation
+      document.querySelector('.aircon-fan').classList.add('flip')
+      document.querySelector('.air').classList.add('air-animate')
+
+      //+- buttons
+      document.querySelector('.plus').addEventListener('click', () => {
+        localStorage.setItem('+', (Number(localStorage.getItem('+')) || 0) + 1) 
+        if (isOnline == true){
+          socket.emit("plus", username)
+        } else {
+          if (currentTemp < 30) {
+            currentTemp++;
+            tempElement.innerHTML = currentTemp + '℃';
+          }
+        }
+      })
+      document.querySelector('.minus').addEventListener('click', () => {
+        localStorage.setItem('-', (Number(localStorage.getItem('-')) || 0) + 1) 
+        if (isOnline == true){
+          socket.emit("minus", username)
+        } else {
+          if (currentTemp > 18) {
+            currentTemp--;
+            tempElement.innerHTML = currentTemp + '℃';
+          }
+        }
+      })
+
+      socket.on("disconnect", () => {
+        console.log(socket.id);
+      })
+    }
+
+
+
+    //real time mode on/off button
+    document.querySelector('.real-time').addEventListener('click', function(){
+
+      //if currently not online
+      if (isOnline == false){
+        isOnline = true
+        document.querySelector('.real-time').classList.add('rainbow');
+
+
+        //starts listening to server
+        socket.on("blocked", (data) => {
+          whoAlertElement.innerHTML = '<p>같은 IP의 과도한 요청으로 미반영</p>';
+        });
+        socket.on("tempChange", (data) => {
+          //{temp : temp, username : arg}
+          tempElement.innerHTML = data.temp + '℃';
+          whoElement.innerHTML = '<p></p>'
+          whoElement.children[0].innerText = '조절한 사람: ' + data.username;
+          currentTemp = data.temp;
+
+          if (isOnline == true && isSoundOn == true){
+            realTimeGain()
+          }
+        })
+        document.querySelector('.real-time').innerHTML = "Online mode is on"
+
+
+      //if currently online
+      } else {
+        isOnline = false
+        document.querySelector('.real-time').classList.remove('rainbow')
+
+        //stop listening to server
+        socket.off('blocked')
+        socket.off('tempChange')
+        document.querySelector('.real-time').innerHTML = "Online mode is off"
+      }
+
+
+      
+    })
+
+
+
+
+
+    //online real time sound
+
+    let gainNode = null;
+
+    function realTimeGain(){
+      
+          // brownNoiseNode = new AudioWorkletNode(audioContext, 'brown-noise-processor');
+
+          //gain
+          // gainNode = audioContext.createGain();
+          gainNode.gain.value = currentTemp * (-1/12) + 3;
+
+          //lowpass filter, need for other type of noise?
+          // filterNode = audioContext.createBiquadFilter();
+          // filterNode.type = 'lowpass';
+          filterNode.frequency.value = 4000;
+
+          // brownNoiseNode.connect(filterNode).connect(gainNode).connect(audioContext.destination);
+
+    }
+
+
+    //who name auto fade
+    setInterval(()=>{
+      var whoElement2 = document.querySelector('.who p');
+      if (whoElement2){
+        whoElement2.classList.add('who-fade')
+      }
+
+      var whoElement3 = document.querySelector('.who-alert p');
+      if (whoElement3){
+        whoElement3.classList.add('who-fade')
+      }
+      
+    }, 1000)
+
+
+  </script>
+
+</body>
+
+</html>
