@@ -289,15 +289,17 @@
     //real time mode on/off button
     document.querySelector('.real-time').addEventListener('click', function(){
 
-      socket = io({transports: ["websocket"]});
+      if (!socket){
+        socket = io({transports: ["websocket"]});
+        socket.on("connect", () => {
+          socket.on("init", (data) => {
+            document.querySelector('.temp').innerHTML = data + '℃'
+            currentTemp = data;
+          });
 
-      socket.on("connect", () => {
-        socket.on("init", (data) => {
-          document.querySelector('.temp').innerHTML = data + '℃'
-          currentTemp = data;
-        });
-
-      })
+        })
+      }
+      
 
       //if currently not online
       if (isOnline == false){
@@ -331,6 +333,8 @@
         //stop listening to server
         socket.off('blocked')
         socket.off('tempChange')
+        socket.off('connect')
+        socket.off('init')
         document.querySelector('.real-time').innerHTML = "Online mode is off"
       }
 
