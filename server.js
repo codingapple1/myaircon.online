@@ -4,7 +4,7 @@ const path = require('path')
 const { RateLimiterMemory } = require('rate-limiter-flexible');
 const rateLimiter = new RateLimiterMemory(
   {
-    points: 20, // 초당 x회 limit
+    points: 10, // 초당 x회 limit
     duration: 1,
   }
 );

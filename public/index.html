@@ -233,14 +233,7 @@
     var isSoundOn = false;
 
 
-    const socket = io();
-    socket.on("connect", () => {
-      socket.on("init", (data) => {
-        document.querySelector('.temp').innerHTML = data + '℃'
-        currentTemp = data;
-      });
-
-    })
+    var socket;
 
 
 
@@ -256,6 +249,7 @@
 
 
     function turnOn() {
+       
       //brown noise ON
       document.querySelector('.brown-noise2').click()
       isSoundOn = true;
@@ -288,15 +282,22 @@
         }
       })
 
-      socket.on("disconnect", () => {
-        console.log(socket.id);
-      })
     }
 
 
 
     //real time mode on/off button
     document.querySelector('.real-time').addEventListener('click', function(){
+
+      socket = io({transports: ["websocket"]});
+
+      socket.on("connect", () => {
+        socket.on("init", (data) => {
+          document.querySelector('.temp').innerHTML = data + '℃'
+          currentTemp = data;
+        });
+
+      })
 
       //if currently not online
       if (isOnline == false){
