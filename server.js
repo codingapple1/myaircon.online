@@ -4,7 +4,7 @@ const path = require('path')
 const { RateLimiterMemory } = require('rate-limiter-flexible');
 const rateLimiter = new RateLimiterMemory(
   {
-    points: 10, // 초당 x회 limit
+    points: 15, // 초당 x회 limit
     duration: 1,
   }
 );
@@ -64,7 +64,7 @@ app.ready((err) => {
         if (temp > 18) {
           temp--;
         }
-        app.io.emit('tempChange', {temp : temp, username : arg})
+        app.io.emit('tempChange', {temp : temp, username : arg.substring(0, 9)})
       } catch (err) {
         socket.emit('blocked', '너무 잦은 요청');
       }
