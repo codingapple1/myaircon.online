@@ -4,8 +4,8 @@ const path = require('path')
 const { RateLimiterMemory } = require('rate-limiter-flexible');
 const rateLimiter = new RateLimiterMemory(
   {
-    points: 15, // 초당 x회 limit
-    duration: 1,
+    points: 10, // 초당 x회 limit
+    duration: 2,
   }
 );
 
@@ -13,7 +13,7 @@ const rateLimiter = new RateLimiterMemory(
 
 const app = fastify();
 app.register(require("fastify-socket.io"), {
-
+  transports : ['websocket']
 });
 
 app.register(require('@fastify/static'), {
@@ -48,7 +48,7 @@ app.ready((err) => {
     
     socket.on("plus", async (arg) => {
       try {
-        await rateLimiter.consume(socket.handshake.headers['x-real-ip']); 
+        await rateLimiter.consume(socket.handshake.headers['x-forwarded-for']); 
         if (temp < 30) {
           temp++;
         }
@@ -60,7 +60,7 @@ app.ready((err) => {
 
     socket.on("minus", async (arg) => {
       try {
-        await rateLimiter.consume(socket.handshake.address); 
+        await rateLimiter.consume(socket.handshake.headers['x-forwarded-for']); 
         if (temp > 18) {
           temp--;
         }
