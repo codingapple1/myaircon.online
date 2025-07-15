@@ -9,97 +9,6 @@
 
 <body style="margin: 0;" >
 
-
-  <div class="aircon-box">
-    <div class="temp-box">
-      <h4 class="temp"></h4>
-    </div>
-    <div class="who-alert"><p></p></div>
-    <div class="who"><p></p></div>
-    <img src="/aircon0.png" class="aircon">
-    <img src="/aircon-fan2.png" class="aircon aircon-fan">
-    <img src="/air2.png" class="aircon air">
-  </div>
-
-
-  <div class="modal">
-    <div class="modal-inner">
-      <input placeholder="nickname" maxlength="9">
-      <button class="ok">OK</button>
-    </div>
-  </div>
-
-  <div class="aircon-box">
-
-    <button class="plus">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg>
-    </button>
-    <button class="minus">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" /></svg></button>
-    <button class="brown-noise2"></button>
-
-  </div>
-  <div class="aircon-box" style="margin-top: 20px;">
-    <button class="real-time">Online mode is off</button>
-  </div>
-
-  
-  
-  <!-- stats and about -->
-  <dialog style="font-size: 11px;">
-    <p>+ button pressed count : <span class="plusCount">0</span></p>
-    <p>- button pressed count : <span class="minusCount">0</span></p>
-    <button class="close-dialog1" autofocus>Close</button>
-  </dialog>
-  <span class="show-dialog1" style="position: fixed; bottom: 10px; right: 45px; font-size: 9px;">Stats</span>
-
-
-  <dialog style="font-size: 11px;">
-    <p>- Brown noise generator to focus and relax</p>
-    <p>- turn on online mode to share the aircon with everyone (saves electricity)</p>
-    <p>- Youtube @codingapple</p>
-    <button class="close-dialog2" autofocus>Close</button>
-  </dialog>
-  <span class="show-dialog2" style="position: fixed; bottom: 10px; right: 10px; font-size: 9px;">About</span>
-
-
-
-
-
-  <script>
-    const dialog = document.querySelectorAll("dialog");
-    const showButton1 = document.querySelector(".show-dialog1");
-    const showButton2 = document.querySelector(".show-dialog2");
-    const closeButton1 = document.querySelector(".close-dialog1");
-    const closeButton2 = document.querySelector(".close-dialog2");
-
-    //stats modal
-    showButton1.addEventListener("click", () => {
-      var plus = localStorage.getItem('+')
-      var minus = localStorage.getItem('-')
-      document.querySelector('.plusCount').innerHTML = plus || '0'
-      document.querySelector('.minusCount').innerHTML = minus || '0'
-      dialog[0].showModal();
-    });
-
-    closeButton1.addEventListener("click", () => {
-      dialog[0].close();
-    });
-
-    //about modal
-    showButton2.addEventListener("click", () => {
-      dialog[1].showModal();
-    });
-
-    closeButton2.addEventListener("click", () => {
-      dialog[1].close();
-    });
-  </script>
-
-
-  <script src="/brown-run.js"></script>
-
-
   <style>
     .modal {
       background: white;
@@ -208,10 +117,9 @@
     .who .who-fade, .who-alert .who-fade{
       opacity: 0;
     }
-    
 
     .rainbow {
-      background: linear-gradient(in hsl longer hue 45deg, rgba(255, 0, 0, 0.537) 0 0);
+      background: linear-gradient(45deg, #ffc1c1, #fbdbab, #ffffcc, #bafbba, #bbe8ff, #dcbefd, #ffb7ff);
       color: black;
       transition: all 1s;
     }
@@ -219,25 +127,110 @@
   </style>
 
 
+  <div class="aircon-box">
+    <div class="temp-box">
+      <h4 class="temp"></h4>
+    </div>
+    <div class="who-alert"><p></p></div>
+    <div class="who"><p></p></div>
+    <img src="/aircon0.png" class="aircon">
+    <img src="/aircon-fan2.png" class="aircon aircon-fan">
+    <img src="/air2.png" class="aircon air">
+  </div>
+
+
+  <div class="modal">
+    <div class="modal-inner">
+      <input placeholder="nickname" maxlength="9">
+      <button class="ok">OK</button>
+    </div>
+  </div>
+
+  <div class="aircon-box">
+
+    <button class="plus">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg>
+    </button>
+    <button class="minus">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" /></svg></button>
+    <button class="brown-noise2"></button>
+
+  </div>
+  <div class="aircon-box" style="margin-top: 20px;">
+    <button class="real-time">Online mode is off</button>
+  </div>
+
+  
+  
+  <!-- stats and about -->
+  <dialog style="font-size: 11px;">
+    <p>+ button pressed count : <span class="plusCount">0</span></p>
+    <p>- button pressed count : <span class="minusCount">0</span></p>
+    <button class="close-dialog1" autofocus>Close</button>
+  </dialog>
+  <span class="show-dialog1" style="position: fixed; bottom: 10px; right: 45px; font-size: 9px;">Stats</span>
+
+
+  <dialog style="font-size: 11px;">
+    <p>- Brown noise generator to focus and relax</p>
+    <p>- turn on online mode to share the aircon with everyone (saves electricity)</p>
+    <p>- Youtube @codingapple</p>
+    <button class="close-dialog2" autofocus>Close</button>
+  </dialog>
+  <span class="show-dialog2" style="position: fixed; bottom: 10px; right: 10px; font-size: 9px;">About</span>
+
+
+
+  <script>
+    const dialog = document.querySelectorAll("dialog");
+    const showButton1 = document.querySelector(".show-dialog1");
+    const showButton2 = document.querySelector(".show-dialog2");
+    const closeButton1 = document.querySelector(".close-dialog1");
+    const closeButton2 = document.querySelector(".close-dialog2");
+
+    //stats modal
+    showButton1.addEventListener("click", () => {
+      var plus = localStorage.getItem('+')
+      var minus = localStorage.getItem('-')
+      document.querySelector('.plusCount').innerHTML = plus || '0'
+      document.querySelector('.minusCount').innerHTML = minus || '0'
+      dialog[0].showModal();
+    });
+
+    closeButton1.addEventListener("click", () => {
+      dialog[0].close();
+    });
+
+    //about modal
+    showButton2.addEventListener("click", () => {
+      dialog[1].showModal();
+    });
+
+    closeButton2.addEventListener("click", () => {
+      dialog[1].close();
+    });
+  </script>
+
+
+
   <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"
     integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO"
     crossorigin="anonymous"></script>
 
+    
+  <script src="/brown-run.js"></script>
+
   <script>
 
-    var tempElement = document.querySelector('.temp')
-    var whoElement = document.querySelector('.who')
-    var whoAlertElement = document.querySelector('.who-alert')
-    var currentTemp = 30;
-    var isOnline = false;
-    var isSoundOn = false;
+    let tempElement = document.querySelector('.temp')
+    let whoElement = document.querySelector('.who')
+    let whoAlertElement = document.querySelector('.who-alert')
+    let currentTemp = 30;
+    let isOnline = false;
+    let isSoundOn = false;
+    let socket;
+    let username = ''
 
-
-    var socket;
-
-
-
-    var username = ''
     document.querySelector('.ok').addEventListener('click', () => {
       //save name
       username = document.querySelector('input').value
@@ -318,8 +311,8 @@
           whoElement.children[0].innerText = '조절한 사람: ' + data.username;
           currentTemp = data.temp;
 
-          if (isOnline == true && isSoundOn == true){
-            realTimeGain()
+          if (isSoundOn == true){
+            realTimeGain() //brown-run.js
           }
         })
         document.querySelector('.real-time').innerHTML = "Online mode is on"
@@ -337,35 +330,8 @@
         socket.off('init')
         document.querySelector('.real-time').innerHTML = "Online mode is off"
       }
-
-
-      
     })
 
-
-
-
-
-    //online real time sound
-
-    let gainNode = null;
-
-    function realTimeGain(){
-      
-          // brownNoiseNode = new AudioWorkletNode(audioContext, 'brown-noise-processor');
-
-          //gain
-          // gainNode = audioContext.createGain();
-          gainNode.gain.value = currentTemp * (-1/12) + 3;
-
-          //lowpass filter, need for other type of noise?
-          // filterNode = audioContext.createBiquadFilter();
-          // filterNode.type = 'lowpass';
-          filterNode.frequency.value = 4000;
-
-          // brownNoiseNode.connect(filterNode).connect(gainNode).connect(audioContext.destination);
-
-    }
 
 
     //who name auto fade
